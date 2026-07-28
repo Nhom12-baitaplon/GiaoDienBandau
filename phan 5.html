@@ -1,0 +1,98 @@
+<script>
+        /* =========================================================================
+           HỆ THỐNG PHÂN ĐOẠN JAVASCRIPT CORE LOGIC CHỨC NĂNG THƯ VIỆN ĐIỆN TỬ
+           ========================================================================= */
+
+        // Đoạn 44: Khai báo cấu trúc dữ liệu bảo mật tài khoản quản trị hệ thống
+        let appConfig = {
+            username: "admin",
+            password: "123@",
+            libName: "Góc nhỏ tri thức",
+            currentStaff: "Ký Linh",
+            currentRole: "Admin"
+        };
+
+        // Đoạn 45: Khởi tạo mảng lưu trữ Cơ sở dữ liệu danh mục Sách ban đầu đầy đủ
+        let booksDatabase = [
+            // Sách Văn Học
+            { id: "S001", title: "Chí Phèo", author: "Nam Cao", category: "Sách Văn Học", isBorrowed: false, isLost: false },
+            { id: "S002", title: "Số Đỏ", author: "Vũ Trọng Phụng", category: "Sách Văn Học", isBorrowed: false, isLost: false },
+            { id: "S003", title: "Tắt Đèn", author: "Ngô Tất Tố", category: "Sách Văn Học", isBorrowed: false, isLost: false },
+            { id: "S004", title: "Dế Mèn Phiêu Lưu Ký", author: "Tô Hoài", category: "Sách Văn Học", isBorrowed: false, isLost: false },
+            { id: "S005", title: "Đội Gạo Lên Chùa", author: "Nguyễn Xuân Khánh", category: "Sách Văn Học", isBorrowed: false, isLost: false },
+            { id: "S006", title: "Những Người Khốn Khổ", author: "Victor Hugo", category: "Sách Văn Học", isBorrowed: false, isLost: false },
+            { id: "S007", title: "Hoàng Tử Bé", author: "Antoine de Saint-Exupéry", category: "Sách Văn Học", isBorrowed: false, isLost: false },
+
+            // Truyện Tranh
+            { id: "S008", title: "Doraemon", author: "Fujiko F. Fujio", category: "Truyện Tranh", isBorrowed: false, isLost: false },
+            { id: "S009", title: "Tý Quậy", author: "Đào Hải", category: "Truyện Tranh", isBorrowed: false, isLost: false },
+            { id: "S010", title: "One Piece", author: "Eiichiro Oda", category: "Truyện Tranh", isBorrowed: false, isLost: false },
+            { id: "S011", title: "Naruto", author: "Masashi Kishimoto", category: "Truyện Tranh", isBorrowed: false, isLost: false },
+
+            // Sách Lịch Sử
+            { id: "S012", title: "Võ Thị Sáu", author: "Nguyễn Đình Thống", category: "Sách Lịch Sử", isBorrowed: false, isLost: false },
+            { id: "S013", title: "Lịch Sử Việt Nam", author: "Đào Duy Anh", category: "Sách Lịch Sử", isBorrowed: false, isLost: false },
+            { id: "S014", title: "Người Đua Diều", author: "Khaled Hosseini", category: "Sách Lịch Sử", isBorrowed: false, isLost: false },
+
+            // Tiểu Thuyết Ngôn Tình
+            { id: "S015", title: "Mắt Biếc", author: "Nguyễn Nhật Ánh", category: "Tiểu Thuyết Ngôn Tình", isBorrowed: false, isLost: false },
+            { id: "S016", title: "Tôi Thấy Hoa Vàng Trên Cỏ Xanh", author: "Nguyễn Nhật Ánh", category: "Tiểu Thuyết Ngôn Tình", isBorrowed: false, isLost: false },
+            { id: "S017", title: "Khó Dỗ Dành", author: "Trúc Dĩ", category: "Tiểu Thuyết Ngôn Tình", isBorrowed: false, isLost: false },
+            { id: "S018", title: "Yêu Em Từ Cái Nhìn Đầu Tiên", author: "Cố Mạn", category: "Tiểu Thuyết Ngôn Tình", isBorrowed: false, isLost: false },
+
+            // Kỹ Năng Giao Tiếp / Triết Học
+            { id: "S019", title: "Đắc Nhân Tâm", author: "Dale Carnegie", category: "Kỹ Năng Giao Tiếp / Triết Học", isBorrowed: false, isLost: false },
+            { id: "S020", title: "Muôn Kiếp Nhân Sinh", author: "Nguyên Phong", category: "Kỹ Năng Giao Tiếp / Triết Học", isBorrowed: false, isLost: false },
+
+            // Tùy Bút Việt Nam
+            { id: "S021", title: "Thương Nhớ Mười Hai", author: "Vũ Bằng", category: "Tùy Bút Việt Nam", isBorrowed: false, isLost: false },
+            { id: "S022", title: "Miếng Ngon Hà Nội", author: "Vũ Bằng", category: "Tùy Bút Việt Nam", isBorrowed: false, isLost: false },
+            { id: "S023", title: "Hà Nội Băm Sáu Phố Phường", author: "Thạch Lam", category: "Tùy Bút Việt Nam", isBorrowed: false, isLost: false },
+
+            // Sách Kiếm Hiệp cổ điển
+            { id: "S024", title: "Anh Hùng Xạ Điêu", author: "Kim Dung", category: "Sách Kiếm Hiệp cổ điển", isBorrowed: false, isLost: false },
+            { id: "S025", title: "Thần Điêu Hiệp Lữ", author: "Kim Dung", category: "Sách Kiếm Hiệp cổ điển", isBorrowed: false, isLost: false },
+            { id: "S026", title: "Ỷ Thiên Đồ Long Ký", author: "Kim Dung", category: "Sách Kiếm Hiệp cổ điển", isBorrowed: false, isLost: false },
+
+            // Sách Trinh Thám
+            { id: "S027", title: "Sách đen", author: "Orhan Pamuk", category: "Sách Trinh Thám", isBorrowed: false, isLost: false },
+            { id: "S028", title: "Phía sau nghi can X", author: "Higashino Keigo", category: "Sách Trinh Thám", isBorrowed: false, isLost: false },
+            { id: "S029", title: "Mật mã Da Vinci", author: "Dan Brown", category: "Sách Trinh Thám", isBorrowed: false, isLost: false },
+            { id: "S030", title: "Án mạng trên chuyến tàu tốc hành phương đông", author: "Agatha Christie", category: "Sách Trinh Thám", isBorrowed: false, isLost: false },
+            { id: "S031", title: "Đạo mộ bút ký", author: "Nam phái Tam Thúc", category: "Sách Trinh Thám", isBorrowed: false, isLost: false },
+            { id: "S032", title: "Bạch dạ hành", author: "Higashino Keigo", category: "Sách Trinh Thám", isBorrowed: false, isLost: false },
+            { id: "S033", title: "Hồ sơ kỹ thuật hình sự", author: "Dư San San", category: "Sách Trinh Thám", isBorrowed: false, isLost: false },
+            { id: "S034", title: "Sự im lặng của bầy cừu", author: "Thomas Harris", category: "Sách Trinh Thám", isBorrowed: false, isLost: false },
+
+            // Tiểu Thuyết Đam mỹ
+            { id: "S035", title: "Đọc thầm", author: "Priest", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S036", title: "Trấn hồn", author: "Priest", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S037", title: "Tát dã", author: "Vu Triết", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S038", title: "Thương tiến tửu", author: "Đường Tửu Khanh", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S039", title: "Kính vạn hoa chết chóc", author: "Tây Tử Tự", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S040", title: "Toàn cầu băng oán", author: "Mộc Tô Lý", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S041", title: "Phán quan", author: "Mộc Tô Lý", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S042", title: "Định hải phù sinh lục", author: "Phi Thiên Dạ Tường", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S043", title: "Thần mộc cào cấu", author: "Nhất Thế Hoa Thường", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S044", title: "Ma đạo tổ sư", author: "Mặc Hương Đồng Khứu", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+            { id: "S045", title: "Thiên quan tứ phúc", author: "Mặc Hương Đồng Khứu", category: "Tiểu Thuyết Đam mỹ", isBorrowed: false, isLost: false },
+
+            // Truyện manga
+            { id: "S046", title: "Death Note", author: "Tsugumi Ohba", category: "Truyện manga", isBorrowed: false, isLost: false },
+            { id: "S047", title: "Thanh gươm diệt quỷ", author: "Koyoharu Gotouge", category: "Truyện manga", isBorrowed: false, isLost: false },
+            { id: "S048", title: "Vương giả thiên hạ", author: "Yasuhisa Hara", category: "Truyện manga", isBorrowed: false, isLost: false },
+
+            // Tiểu Thuyết Kháng Chiến / Cách Mạng
+            { id: "S049", title: "Thép Đã Tôi Thế Đấy", author: "Nikolai Ostrovsky", category: "Tiểu Thuyết Kháng Chiến / Cách Mạng", isBorrowed: false, isLost: false },
+            { id: "S050", title: "Nỗi Buồn Chiến Tranh", author: "Bảo Ninh", category: "Tiểu Thuyết Kháng Chiến / Cách Mạng", isBorrowed: false, isLost: false },
+            { id: "S051", title: "Đất Nước Đứng Lên", author: "Nguyên Ngọc", category: "Tiểu Thuyết Kháng Chiến / Cách Mạng", isBorrowed: false, isLost: false },
+            { id: "S052", title: "Hòn Đất", author: "Anh Đức", category: "Tiểu Thuyết Kháng Chiến / Cách Mạng", isBorrowed: false, isLost: false },
+
+            // Truyện Thơ Cổ Phong Việt Nam
+            { id: "S053", title: "Chinh Phụ Ngâm", author: "Đặng Trần Côn", category: "Truyện Thơ Cổ Phong Việt Nam", isBorrowed: false, isLost: false },
+            { id: "S054", title: "Cung Oán Ngâm Khúc", author: "Nguyễn Gia Thiều", category: "Truyện Thơ Cổ Phong Việt Nam", isBorrowed: false, isLost: false },
+
+            // Văn Học Cổ Điển + Triết Lý / Chiến Tranh
+            { id: "S055", title: "Nhà Giả Kim", author: "Paulo Coelho", category: "Văn Học Cổ Điển + Triết Lý / Chiến Tranh", isBorrowed: false, isLost: false },
+            { id: "S056", title: "Chuông Nguyện Hồn Ai", author: "Ernest Hemingway", category: "Văn Học Cổ Điển + Triết Lý / Chiến Tranh", isBorrowed: false, isLost: false }
+        ];
