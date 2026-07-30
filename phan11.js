@@ -1,5 +1,4 @@
-<script>
-    window.onerror = function(message, source, lineno, colno, error) {
+  window.onerror = function(message, source, lineno, colno, error) {
         console.error("Hệ thống phát hiện lỗi vận hành: " + message + " tại dòng: " + lineno);
         return true;
     };
@@ -30,5 +29,4 @@
         }
     }, 30000);
 
-    console.log("🚀 Góc nhỏ tri thức Engine — Toàn bộ 100 phân đoạn kiến trúc Core của phần mềm Thư viện đã nạp và sẵn sàng thực thi!");
-</script>
+    console.log("🚀 Góc nhỏ tri thức Engine — Toàn bộ 100 phân đoạn kiến trúc Core của phần mềm Thư viện đã nạp và sẵn sàng thực thi!");z
